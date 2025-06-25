@@ -48,7 +48,12 @@ export const Auth = () => {
       my="2rem"
     >
       <Paper
-        sx={{ maxWidth: 720, minWidth: 500, display: 'flex', p: 4 }}
+        sx={{
+          maxWidth: 720,
+          minWidth: { xs: '90%', sm: 500 },
+          display: 'flex',
+          p: 4,
+        }}
         elevation={4}
       >
         <Container>
