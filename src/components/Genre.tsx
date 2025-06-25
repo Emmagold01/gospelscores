@@ -30,9 +30,13 @@ export const Genre = ({ active, setActive }: GenreProps) => {
         sx={{
           py: 2,
           display: 'flex',
-          justifyContent: 'space-between',
           gap: '10px',
-          flexWrap: 'wrap',
+          flexWrap: 'nowrap',
+          overflowX: 'auto',
+          scrollbarWidth: 'none',
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
         }}
       >
         {genres.map((genre) => (

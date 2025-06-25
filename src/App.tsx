@@ -14,9 +14,9 @@ function App() {
 
   return (
     <>
-      {/* <Navbar />
+      <Navbar />
       <Genre active={active} setActive={setActive} />
-      <Songs active={active} /> */}
+      <Songs active={active} />
 
       <Auth />
     </>
