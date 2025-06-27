@@ -1,6 +1,6 @@
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Avatar, Box, Button, Container, Typography } from '@mui/material';
 import musicover from '../assets/musicover.jpeg';
-import music from '../assets/music.png';
+// import music from '../assets/music.png';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import PlayCircleFilledTwoToneIcon from '@mui/icons-material/PlayCircleFilledTwoTone';
 import ZoomOutMapIcon from '@mui/icons-material/ZoomOutMap';
@@ -8,6 +8,7 @@ import ZoomInMapIcon from '@mui/icons-material/ZoomInMap';
 import musicSheet from '../assets/sheets.png';
 
 import { useState } from 'react';
+import { Audiotrack } from '@mui/icons-material';
 
 type Vocals = {
   img: string;
@@ -260,7 +261,6 @@ export const ScorePreview = () => {
             </>
           </Box>
 
-          {/* Right side - clickable score parts */}
           <Box
             sx={{
               width: '30%',
@@ -279,15 +279,9 @@ export const ScorePreview = () => {
                   gap: '0.6rem',
                 }}
               >
-                <Box
-                  sx={{
-                    backgroundColor: '#5A2B2B',
-                    borderRadius: '50%',
-                    padding: 1,
-                  }}
-                >
-                  <img src={music} alt="music" />
-                </Box>
+                <Avatar sx={{ bgcolor: '#5A2B2B' }}>
+                  <Audiotrack />
+                </Avatar>
 
                 <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                   <Box>
