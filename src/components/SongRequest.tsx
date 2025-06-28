@@ -11,7 +11,7 @@ import { ChangeEvent, useState } from 'react';
 import IOSSwitch from './IOSSwitch';
 
 export const SongRequest = () => {
-  const [useAudioFile, setUseAudioFile] = useState(false);
+  const [useAudioFile, setUseAudioFile] = useState<boolean>(false);
 
   type SongData = {
     title: string;
