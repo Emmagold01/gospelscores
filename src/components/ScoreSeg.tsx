@@ -3,7 +3,12 @@ import { Checkbox, IconButton } from '@mui/material';
 import { Box, TextField, Autocomplete, FormControlLabel } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export const ScoreSeg = () => {
+interface ScoreSegProps {
+  id: number;
+  onDelete: (id: number) => void;
+}
+
+export const ScoreSeg = ({ id, onDelete }: ScoreSegProps) => {
   const [segmentType, setSegmentType] = useState<string[]>([]);
   const [mark, setMark] = useState<boolean>(false);
 
@@ -117,9 +122,14 @@ export const ScoreSeg = () => {
         />
       </Box>
 
-      <IconButton sx={{ position: 'absolute', top: 20, right: 20 }}>
-        <DeleteIcon sx={{ color: 'black' }} />
-      </IconButton>
+      {id !== 0 && (
+        <IconButton
+          onClick={() => onDelete(id)}
+          sx={{ position: 'absolute', top: 20, right: 20 }}
+        >
+          <DeleteIcon sx={{ color: 'black' }} />
+        </IconButton>
+      )}
     </Box>
   );
 };

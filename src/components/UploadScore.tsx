@@ -6,6 +6,7 @@ import {
   Divider,
   IconButton,
   Paper,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import { ReactNode, useState } from 'react';
@@ -32,10 +33,22 @@ export const UploadScore = () => {
       case ScorePage.MAINSCORE:
         return <MainScore setCurrentPage={setCurrentPage} />;
       case ScorePage.SOCRESEGMENT:
-        return <ScoreSeg />;
+        return <ScoreSeg id={0} onDelete={() => {}} />;
       default:
         return <ScoreInfo setCurrentPage={setCurrentPage} />;
     }
+  };
+
+  const [segments, setSegments] = useState<{ id: number }[]>([]);
+  const [counter, setCounter] = useState(1);
+
+  const handleAddSegment = () => {
+    setSegments([...segments, { id: counter }]);
+    setCounter((prev) => prev + 1);
+  };
+
+  const handleDeleteSegment = (idToRemove: number) => {
+    setSegments(segments.filter(({ id }) => id !== idToRemove));
   };
 
   return (
@@ -44,10 +57,20 @@ export const UploadScore = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        flexDirection: 'column',
       }}
     >
       <Box>
-        <Paper elevation={4} sx={{ width: '900px', my: 5, py: 5, mb: 2 }}>
+        <Paper
+          elevation={4}
+          sx={{
+            width: { xs: '95%', sm: '650px', md: '900px' },
+            mx: 'auto',
+            my: 5,
+            py: { xs: 4, sm: 5 },
+            mb: 2,
+          }}
+        >
           <Container maxWidth="md">
             <Box sx={{ width: '90%', mx: 'auto' }}>
               <Typography
@@ -56,13 +79,12 @@ export const UploadScore = () => {
                   fontSize: { xs: '20px', sm: '40px' },
                   fontFamily: 'jura',
                   fontWeight: '700',
-
                   color: '#2e3192',
                 }}
               >
                 Song Score Upload
               </Typography>
-              <Divider sx={{ width: '70%', mx: 'auto' }} />
+              <Divider sx={{ width: { xs: '90%', sm: '70%' }, mx: 'auto' }} />
 
               <Box
                 sx={{
@@ -180,21 +202,30 @@ export const UploadScore = () => {
             </Box>
 
             {currentPage === ScorePage.SOCRESEGMENT && (
-              <Box mt={2} display="flex" justifyContent="center" mr={3.5}>
-                <IconButton
-                  title="Add new Score Info"
-                  color="success"
-                  size="large"
-                  sx={{
-                    bgcolor: 'green',
-                    color: 'white',
-                    '&:hover': {
-                      bgcolor: '#45a049',
-                    },
-                  }}
-                >
-                  <Add />
-                </IconButton>
+              <Box
+                mt={2}
+                display="flex"
+                justifyContent="center"
+                sx={{
+                  mr: { sx: 0, lg: 3.5 },
+                }}
+              >
+                <Tooltip title="Add more segments">
+                  <IconButton
+                    onClick={handleAddSegment}
+                    color="success"
+                    size="large"
+                    sx={{
+                      bgcolor: 'green',
+                      color: 'white',
+                      '&:hover': {
+                        bgcolor: '#45a049',
+                      },
+                    }}
+                  >
+                    <Add />
+                  </IconButton>
+                </Tooltip>
               </Box>
             )}
           </Container>
@@ -202,10 +233,40 @@ export const UploadScore = () => {
 
         <Paper
           elevation={4}
-          sx={{ width: '900px', my: 10, py: 10, mb: 3, position: 'relative' }}
+          sx={{
+            width: { xs: '95%', sm: '650px', md: '900px' },
+            mx: 'auto',
+            my: 10,
+            py: { xs: 5, sm: 10 },
+            mb: 3,
+            position: 'relative',
+          }}
         >
           <Container maxWidth="md">{getCurrentPage(currentPage)}</Container>
         </Paper>
+
+        {currentPage === ScorePage.SOCRESEGMENT && (
+          <Box>
+            {segments.map(({ id }) => (
+              <Paper
+                key={id}
+                elevation={4}
+                sx={{
+                  width: { xs: '95%', sm: '650px', md: '900px' },
+                  mx: 'auto',
+                  my: 10,
+                  py: { xs: 5, sm: 10 },
+                  mb: 3,
+                  position: 'relative',
+                }}
+              >
+                <Container maxWidth="md">
+                  <ScoreSeg id={id} onDelete={handleDeleteSegment} />
+                </Container>
+              </Paper>
+            ))}
+          </Box>
+        )}
       </Box>
     </Box>
   );
